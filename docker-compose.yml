@@ -1,0 +1,87 @@
+version: '3.8'
+
+# ============================================================================
+# Zumra.shop (زُمرة) — Production Multi-Container Composition
+# Orchestrated by Khaled (DevOps Lead) & Ziad (Database Architect)
+# ============================================================================
+
+services:
+  # --------------------------------------------------------------------------
+  # 1. Zumra Fastify Application Service
+  # --------------------------------------------------------------------------
+  zumra-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zumra_trade_engine
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DB_PATH=/usr/src/app/data/zumra.sqlite
+      - REDIS_URL=redis://zumra-redis:6379
+      - JWT_SECRET=zumra_production_jwt_secret_key_change_me
+      - CORRELATION_HEADER=x-correlation-id
+      - DEFAULT_MARKET_ZONE=EL_ATABA
+    volumes:
+      - sqlite_data:/usr/src/app/data
+    depends_on:
+      zumra-redis:
+        condition: service_healthy
+    networks:
+      - zumra_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # --------------------------------------------------------------------------
+  # 2. Redis Session Whitelist & Caching Service
+  # --------------------------------------------------------------------------
+  zumra-redis:
+    image: redis:7-alpine
+    container_name: zumra_redis_session
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass zumra_redis_pass_2026
+    networks:
+      - zumra_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # --------------------------------------------------------------------------
+  # 3. Microsoft SQL Server (Staging/Production Migration Host)
+  # --------------------------------------------------------------------------
+  zumra-mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: zumra_mssql_staging
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Zumra_Pass_2026_Prod!
+    volumes:
+      - mssql_data:/var/opt/mssql
+    networks:
+      - zumra_network
+
+networks:
+  zumra_network:
+    driver: bridge
+
+volumes:
+  sqlite_data:
+  redis_data:
+  mssql_data:

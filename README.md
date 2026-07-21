@@ -10,7 +10,7 @@ The project is driven by a specialized multi-agent engineering & business team:
 1. **Aya (Chief Architect & Team Lead)** — Clean Architecture & Fastify Governance
 2. **Tarek (Market & Trade Strategist)** — Wholesale Dynamics & Affiliate Models
 3. **Farida (Logistics & Fleet Ops)** — Zonal Fleet Management & COD Risk Mitigation
-4. **Hazem (Fintech & Accounting)** — Zero-Sum Double-Entry Ledger & Multi-Party Payouts
+4. **Hazem (Fintech & Business Lead)** — Zero-Sum Double-Entry Ledger, Capital Allocation & Unit Economics Governance
 5. **Nour (AI & Prompt Engineer)** — Voice-to-JSON (Egyptian Slang) & SEO Slugs
 6. **Omar (Backend Engineer)** — Fastify REST APIs & JWT/Redis Lifecycle
 7. **Ziad (Database Architect)** — Portable SQLite/SQL Server Schema & Financial Indexes

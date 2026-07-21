@@ -21,8 +21,13 @@
   "author": "Zumra.shop Enterprise Engineering Team",
   "license": "MIT",
   "dependencies": {
+    "@fastify/cors": "^8.5.0",
+    "@fastify/swagger": "^8.15.0",
+    "@fastify/swagger-ui": "^2.1.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
+    "jsonwebtoken": "^9.0.3",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

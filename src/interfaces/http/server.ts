@@ -5,7 +5,7 @@ import { buildApp } from './app';
 import { Logger } from '../../infrastructure/logging/logger';
 import { SQLiteConnection } from '../../infrastructure/database/sqlite-connection';
 
-async function startServer() {
+export async function startServer() {
   const port = parseInt(process.env.PORT || '3000', 10);
   const host = process.env.HOST || '0.0.0.0';
 
@@ -37,6 +37,7 @@ async function startServer() {
   }
 }
 
-if (require.main === module) {
+// Invoke server startup
+if (require.main === module || require.main?.filename.includes('index')) {
   startServer();
 }

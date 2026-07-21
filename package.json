@@ -22,9 +22,12 @@
   "license": "MIT",
   "dependencies": {
     "@fastify/cors": "^8.5.0",
+    "@fastify/static": "^7.0.4",
     "@fastify/swagger": "^8.15.0",
     "@fastify/swagger-ui": "^2.1.0",
+    "@types/bwip-js": "^3.2.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "bwip-js": "^4.11.2",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
     "jsonwebtoken": "^9.0.3",

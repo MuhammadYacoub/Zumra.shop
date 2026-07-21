@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>زُمرة (Zumra.shop) - بوابـة التجـار وتكوييـد المبدأ 1P</title>
+  <meta name="description" content="منصة زُمرة الذكية لربط تجار العتبة والفجالة - إدارة الكتالوج، الباركود، والـ MarTech Engine">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-background">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="layout">
+    <!-- Header / Navigation Navbar -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="logo-icon">ز</div>
+        <div class="brand-text">
+          <h1>زُمرة<span>.shop</span></h1>
+          <p class="tagline">محرك التجارة الذكي لأسواق العتبة والفجالة (Dogfooding Merchant Console)</p>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-badge live">
+          <span class="pulse-dot"></span>
+          الأنظمة حية (Direct 1P Inventory)
+        </span>
+        <span class="env-badge">ADR-005 Compliant</span>
+      </div>
+    </header>
+
+    <!-- Main Navigation Bar -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="catalog">
+        <svg class="tab-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+        كتالوج المنتجات والتكويد
+      </button>
+      <button class="tab-btn" data-tab="barcode">
+        <svg class="tab-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M2 4h2v16H2zm4 0h1v16H6zm3 0h2v16H9zm4 0h3v16h-3zm5 0h1v16h-1zm3 0h2v16h-2z"/></svg>
+        استوديو الباركود المباشر
+      </button>
+      <button class="tab-btn" data-tab="slang-ai">
+        <svg class="tab-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-1 5h2v6h-2zm0 8h2v2h-2z"/></svg>
+        محاكي مصطلحات السوق (AI Slang)
+      </button>
+      <button class="tab-btn" data-tab="martech">
+        <svg class="tab-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        بث أحداث التسويق (MarTech Events)
+      </button>
+      <button class="tab-btn" data-tab="calculator">
+        <svg class="tab-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/></svg>
+        حاسبة الخصومات والكاش باك
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content-container">
+      
+      <!-- TAB 1: Catalog & Ingestion -->
+      <section id="tab-catalog" class="tab-content active">
+        <div class="section-header">
+          <div>
+            <h2>📦 كتالوج بضاعة زُمرة (1P Direct Sourced Catalog)</h2>
+            <p>إدارة البضاعة الموردة مباشرة من الفجالة والعتبة مع التكويد التلقائي للباركود وتحديد أسعار الجملة.</p>
+          </div>
+          <button class="btn btn-primary" id="open-add-modal">+ إضافة منتج جديد للكتالوج</button>
+        </div>
+
+        <div class="filter-bar glass-card">
+          <input type="text" id="catalog-search" placeholder="بحث بالاسم، الباركود، الـ SKU، أو مصطلح السوق (مثلاً: غزل، كشكول، أظرف)..." class="input-field">
+          <select id="catalog-category-filter" class="input-field select-field">
+            <option value="">جميع الفئات</option>
+            <option value="أدوات مكتبية">أدوات مكتبية (الفجالة)</option>
+            <option value="بلاستيكيات وتغليف">بلاستيكيات وتغليف (العتبة)</option>
+          </select>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+          <div class="loading-spinner">جاري تحميل كتالوج زُمرة...</div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Live Barcode Studio -->
+      <section id="tab-barcode" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>🏷️ استوديو إنشاء الباركود والـ QR (GS1 & Internal SKU)</h2>
+            <p>إنشاء وطباعة الباركود فوراً للطرود والكراتين التي لا تحتوي على باركود مصنعي.</p>
+          </div>
+        </div>
+
+        <div class="barcode-studio-grid">
+          <div class="glass-card barcode-form-card">
+            <h3>تخصيص الباركود</h3>
+            <div class="form-group">
+              <label>رمز الباركود / الكود (Barcode Value):</label>
+              <input type="text" id="barcode-input-value" value="6221000982101" class="input-field">
+            </div>
+            <div class="form-group">
+              <label>نوع التشفير (Symbology Standard):</label>
+              <select id="barcode-type-select" class="input-field select-field">
+                <option value="code128">Code 128 (قياسي للشحنات)</option>
+                <option value="ean13">EAN-13 (باركود تجاري عالمي)</option>
+                <option value="qrcode">QR Code (سريع للاستجابة)</option>
+              </select>
+            </div>
+            <button class="btn btn-secondary btn-block" id="generate-barcode-btn">توليد الباركود الآن</button>
+          </div>
+
+          <div class="glass-card barcode-preview-card">
+            <h3>معاينة الباركود المباشر</h3>
+            <div class="barcode-display-box" id="barcode-display-box">
+              <img id="barcode-image-preview" src="/api/v1/catalog/barcode?code=6221000982101&type=code128" alt="Barcode Preview">
+            </div>
+            <div class="barcode-meta" id="barcode-meta-info">
+              <span>Standard: <strong id="meta-type">Code 128</strong></span>
+              <span>Status: <strong class="text-success">Verified Active</strong></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: AI Slang Normalizer Simulator -->
+      <section id="tab-slang-ai" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>🤖 محاكي الذكاء الاصطناعي لمصطلحات تجار العتبة والفجالة</h2>
+            <p>تحليل الصوت والعبارات الشفوية للتجار وتحويلها لسلة طلبات هيكلية (JSON Order Payload).</p>
+          </div>
+        </div>
+
+        <div class="slang-grid">
+          <div class="glass-card">
+            <h3>إدخال عبارة التاجر الصوتية / النصية</h3>
+            <p class="hint">جرب عبارة شائعة من سوق الفجالة أو العتبة:</p>
+            <div class="preset-chips">
+              <button class="chip" data-phrase="ابعتلي دستتين قلم فسفوري ألماني وخمس كراتين كشاكيل غزل 80 ورقة">"دستتين قلم فسفوري وخمس كراتين كشاكيل..."</button>
+              <button class="chip" data-phrase="عاوز طرد أظرف بكبسولة ألوان مشكلة من بتاعة العتبة">"طرد أظرف بكبسولة من العتبة..."</button>
+            </div>
+            <textarea id="slang-input-text" class="input-field textarea-field" rows="4" placeholder="اكتب عبارة التاجر بالعامية المصرية هنا..."></textarea>
+            <button class="btn btn-primary btn-block" id="normalize-slang-btn">⚡ تحليل العبارة بواسطة الذكاء الاصطناعي</button>
+          </div>
+
+          <div class="glass-card">
+            <h3>نتيجة التحليل الهيكلي (Structured Slang Parsing)</h3>
+            <div class="json-viewer" id="slang-result-json">
+              <span class="json-placeholder">اضغط على زر التحليل لعرض الـ JSON الناتج...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: MarTech Event Stream Debugger -->
+      <section id="tab-martech" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>📣 محرك بث أحداث التسويق (MarTech Real-Time Stream)</h2>
+            <p>متابعة وتتبع الأحداث التسويقية (Meta CAPI, GA4, TikTok Pixel) الصادرة من المنصة فور حدوثها.</p>
+          </div>
+          <button class="btn btn-secondary" id="refresh-events-btn">🔄 تحديث البث اللحظي</button>
+        </div>
+
+        <div class="martech-container glass-card">
+          <div class="martech-header">
+            <span>البث الحي للـ Event Bus (`Redis / In-Memory Stream`)</span>
+            <span class="badge" id="event-count-badge">0 Events Logged</span>
+          </div>
+          <div class="event-stream-list" id="event-stream-list">
+            <div class="loading-spinner">جاري الاستماع للـ MarTech Events...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: Bulk Pricing Calculator -->
+      <section id="tab-calculator" class="tab-content">
+        <div class="section-header">
+          <div>
+            <h2>💰 حاسبة التسعير التجميعي والكاش باك للتجار (Bulk Pricing & Rebate Engine)</h2>
+            <p>محاكاة الخصومات التراكمية وسيكولوجية الكاش باك بناءً على الكمية المطلوبة.</p>
+          </div>
+        </div>
+
+        <div class="calc-grid">
+          <div class="glass-card">
+            <h3>حساب الأوردر والخصومات</h3>
+            <div class="form-group">
+              <label>اختر المنتج:</label>
+              <select id="calc-product-select" class="input-field select-field"></select>
+            </div>
+            <div class="form-group">
+              <label>الكمية المطلوبة (عدد القطع/الكراتين):</label>
+              <input type="number" id="calc-quantity-input" value="40" min="1" class="input-field">
+            </div>
+          </div>
+
+          <div class="glass-card calc-results-card">
+            <h3>تفاصيل الحساب النقدي والسيكولوجي</h3>
+            <div class="result-row">
+              <span>السعر الأساسي للقطعة:</span>
+              <strong id="res-base-price">0.00 ج.م</strong>
+            </div>
+            <div class="result-row">
+              <span>السعر الفعلي بعد الخصم:</span>
+              <strong id="res-effective-price" class="highlight-green">0.00 ج.م</strong>
+            </div>
+            <div class="result-row">
+              <span>إجمالي قيمة الطلب:</span>
+              <strong id="res-total-price">0.00 ج.م</strong>
+            </div>
+            <div class="result-row">
+              <span>المستوى المطبق (Tier):</span>
+              <span class="badge badge-accent" id="res-applied-tier">خصم قياسي</span>
+            </div>
+            <div class="result-row">
+              <span>الكاش باك المستحق للتسوية (`Ledger Rebate`):</span>
+              <strong id="res-cashback" class="text-gold">0.00 ج.م</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal for Adding New Product -->
+  <div class="modal-overlay" id="add-product-modal">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h3>+ إضافة منتج جديد لكتالوج زُمرة (Direct Sourcing Ingestion)</h3>
+        <button class="close-btn" id="close-modal-btn">&times;</button>
+      </div>
+      <form id="add-product-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>اسم المنتج (بالعربية): *</label>
+            <input type="text" id="p-name-ar" required placeholder="مثال: كشكول سلك 80 ورقة - زياد" class="input-field">
+          </div>
+          <div class="form-group">
+            <label>الفئة الرئيسية: *</label>
+            <select id="p-category" class="input-field select-field">
+              <option value="أدوات مكتبية">أدوات مكتبية (الفجالة)</option>
+              <option value="بلاستيكيات وتغليف">بلاستيكيات وتغليف (العتبة)</option>
+              <option value="خردوات وهدايا">خردوات وهدايا (العتبة)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>مصدر البضاعة (Market Origin): *</label>
+            <select id="p-origin" class="input-field select-field">
+              <option value="EL_FAGALA">سوق الفجالة</option>
+              <option value="EL_ATABA">سوق العتبة</option>
+              <option value="DIRECT_FACTORY">مباشرة من المصنع</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>نوع العبوة (Packaging Unit): *</label>
+            <select id="p-unit" class="input-field select-field">
+              <option value="CARTON">كرتونة (Master Carton)</option>
+              <option value="DOZEN">دستة (12 قطعة)</option>
+              <option value="BUNDLE">ربطة / باكتة</option>
+              <option value="PARCEL">طرد كبير</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>عدد القطع في الكرتونة/العبوة:</label>
+            <input type="number" id="p-units-per-carton" value="40" class="input-field">
+          </div>
+          <div class="form-group">
+            <label>سعر البيع الفردي الأساسي (ج.م): *</label>
+            <input type="number" step="0.5" id="p-base-price" required value="25.0" class="input-field">
+          </div>
+          <div class="form-group">
+            <label>الكمية المتوفرة في المخزن:</label>
+            <input type="number" id="p-stock" value="100" class="input-field">
+          </div>
+          <div class="form-group full-width">
+            <label>مصطلحات العامية المفتاحية (مفصولة بفاصلة):</label>
+            <input type="text" id="p-slang" placeholder="مثال: غزل، سلك 80، الحلوة، كشكول الفجالة" class="input-field">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancel-modal-btn">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ وتكوييد المنتج</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

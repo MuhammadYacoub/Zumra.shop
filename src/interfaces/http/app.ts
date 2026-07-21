@@ -2,11 +2,14 @@ import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import fastifyStatic from '@fastify/static';
+import path from 'path';
 import { correlationIdMiddleware } from './middleware/correlation-id.middleware';
 import { authenticateMiddleware } from './middleware/auth.middleware';
 import { IngestionController, ProcessVoiceOrderBody } from './controllers/IngestionController';
 import { LedgerController, RecordLedgerEntryBody } from './controllers/LedgerController';
 import { FleetController, AssignShipmentBody } from './controllers/FleetController';
+import { CatalogController } from './controllers/CatalogController';
 import { SessionWhitelistService } from '../../infrastructure/security/SessionWhitelistService';
 import { Logger } from '../../infrastructure/logging/logger';
 
@@ -21,11 +24,17 @@ export function buildApp(): FastifyInstance {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   });
 
-  // 2. OpenAPI / Swagger Documentation
+  // 2. Static File Serving for Frontend Web App
+  app.register(fastifyStatic, {
+    root: path.join(__dirname, '../../../public'),
+    prefix: '/', // Serves index.html at http://localhost:3000/
+  });
+
+  // 3. OpenAPI / Swagger Documentation
   app.register(swagger, {
     openapi: {
       info: {
-        title: 'Zumra.shop (زُمرة) B2B Trade & Accounting API',
+        title: 'Zumra.shop (زُمرة) B2B Trade & Catalog Engine API',
         description: 'Smart E-commerce REST Engine for Traditional Egyptian Wholesale Markets (El-Ataba, El-Fagala).',
         version: '1.0.0',
       },
@@ -50,13 +59,14 @@ export function buildApp(): FastifyInstance {
     },
   });
 
-  // 3. Global onRequest Hooks
+  // 4. Global onRequest Hooks
   app.addHook('onRequest', correlationIdMiddleware);
 
   // Controllers
   const ingestionCtrl = new IngestionController();
   const ledgerCtrl = new LedgerController();
   const fleetCtrl = new FleetController();
+  const catalogCtrl = new CatalogController();
 
   // --------------------------------------------------------------------------
   // PUBLIC ROUTES
@@ -69,6 +79,23 @@ export function buildApp(): FastifyInstance {
       timestamp: new Date().toISOString(),
       correlationId: request.correlationId,
     });
+  });
+
+  // Public Catalog & Barcode Endpoints (for Frontend Dashboard & Mobile)
+  app.get('/api/v1/catalog/products', async (req: any, res) => {
+    await catalogCtrl.listProducts(req, res);
+  });
+
+  app.post('/api/v1/catalog/products', async (req: any, res) => {
+    await catalogCtrl.createProduct(req, res);
+  });
+
+  app.get('/api/v1/catalog/barcode', async (req: any, res) => {
+    await catalogCtrl.renderBarcodeSvg(req, res);
+  });
+
+  app.get('/api/v1/marketing/events', async (req: any, res) => {
+    await catalogCtrl.getMarTechEvents(req, res);
   });
 
   // Auth helper endpoint for obtaining test Bearer tokens
